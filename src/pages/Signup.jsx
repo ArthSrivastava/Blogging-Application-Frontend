@@ -27,8 +27,8 @@ export default function Signup() {
 
   const [errors, setErrors] = useState({
     error: "",
-    hasError: false
-  })
+    hasError: false,
+  });
   //Handle form inputs
   function handleChange(event) {
     // console.log(formData);
@@ -47,14 +47,14 @@ export default function Signup() {
       email: "",
       password: "",
       about: "",
-    })
-    resetError()
+    });
+    resetError();
   }
   function resetError() {
     setErrors({
       error: "",
-      hasError: false
-    })
+      hasError: false,
+    });
   }
 
   //submitting the form
@@ -66,18 +66,20 @@ export default function Signup() {
 
     //Submitting to server
 
-    signUp(formData).then((resp) => {
-      console.log(resp)
-      toast.success("User registered successfully!");
-      resetData();
-    }).catch((respError) => {
-      // console.log(error)
-      setErrors({
-        error: respError,
-        hasError: true
+    signUp(formData)
+      .then((resp) => {
+        console.log(resp);
+        toast.success("User registered successfully!");
+        resetData();
       })
-      toast.error("Enter all data correctly!")
-    })
+      .catch((respError) => {
+        // console.log(error)
+        setErrors({
+          error: respError,
+          hasError: true,
+        });
+        toast.error("Enter all data correctly!");
+      });
   }
   return (
     <Base>
@@ -89,9 +91,9 @@ export default function Signup() {
               offset: 3,
             }}
           >
-            <Card color="dark" inverse>
-              <CardHeader className="text-center">
-                <h3>Register Here!</h3>
+            <Card className="card">
+              <CardHeader>
+                <h3>Register Here</h3>
               </CardHeader>
 
               <CardBody>
@@ -105,7 +107,11 @@ export default function Signup() {
                       onChange={handleChange}
                       name="name"
                       value={formData.name}
-                      invalid={errors.hasError && errors.error.response.data.name ? true : false}
+                      invalid={
+                        errors.hasError && errors.error.response.data.name
+                          ? true
+                          : false
+                      }
                     />
                     <FormFeedback>
                       {errors.hasError && errors.error.response.data.name}
@@ -120,7 +126,11 @@ export default function Signup() {
                       onChange={handleChange}
                       name="email"
                       value={formData.email}
-                      invalid={errors.hasError && errors.error.response.data.email ? true : false}
+                      invalid={
+                        errors.hasError && errors.error.response.data.email
+                          ? true
+                          : false
+                      }
                     />
                     <FormFeedback>
                       {errors.hasError && errors.error.response.data.email}
@@ -136,7 +146,11 @@ export default function Signup() {
                       onChange={handleChange}
                       name="password"
                       value={formData.password}
-                      invalid={errors.hasError && errors.error.response.data.password ? true : false}
+                      invalid={
+                        errors.hasError && errors.error.response.data.password
+                          ? true
+                          : false
+                      }
                     />
                     <FormFeedback>
                       {errors.hasError && errors.error.response.data.password}
@@ -153,7 +167,11 @@ export default function Signup() {
                       onChange={handleChange}
                       name="about"
                       value={formData.about}
-                      invalid={errors.hasError && errors.error.response.data.about ? true : false}
+                      invalid={
+                        errors.hasError && errors.error.response.data.about
+                          ? true
+                          : false
+                      }
                     />
                     <FormFeedback>
                       {errors.hasError && errors.error.response.data.about}
@@ -161,16 +179,15 @@ export default function Signup() {
                   </FormGroup>
 
                   <Container className="text-center">
-                    <Button
-                     color="light"
-                      outline>
+                    <Button color="primary">
                       Signup
                     </Button>
-                    <Button 
-                    color="secondary"
-                     type="reset"
+                    <Button
+                      color="danger"
+                      type="reset"
                       className="ms-2"
-                      onClick={resetData}>
+                      onClick={resetData}
+                    >
                       Reset
                     </Button>
                   </Container>

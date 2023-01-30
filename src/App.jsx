@@ -8,7 +8,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Contact from "./pages/Contact";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
-
+import PrivateRoutes from "./components/PrivateRoutes";
+import UserDashboard from "./pages/user-routes/UserDashboard";
+import ProfileInfo from "./pages/user-routes/ProfileInfo";
+import "./App.css"
 export default function App() {
   return (
     <BrowserRouter>
@@ -20,6 +23,10 @@ export default function App() {
         <Route path="login" element={<Login/>}/>
         <Route path="about" element={<About/>}/>
         <Route path="contact" element={<Contact/>}/>
+        <Route path="/user" element={<PrivateRoutes />}>
+          <Route path="dashboard" element={<UserDashboard />} />
+          <Route path="profile-info" element={<ProfileInfo />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   )
