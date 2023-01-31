@@ -21,3 +21,13 @@ export const isLoggedIn = () => {
     let data = localStorage.getItem("data")
     return data != undefined ? true : false
 }
+
+//get jwt token
+export const getToken = () => {
+    if(isLoggedIn()) {
+        let token = JSON.parse(localStorage.getItem("data")).token
+        return token
+    } else {
+        return null
+    }
+}
