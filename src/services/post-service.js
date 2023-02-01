@@ -5,5 +5,9 @@ export const makePost = (postData) => {
 }
 
 export const getAllPosts = (pageNumber=0, pageSize=5) => {
-    return myAxios.get(`/posts?pageNumber=${pageNumber}&pageSize=${pageSize}`).then(response => response.data)
+    return myAxios.get(`/posts?pageNumber=${pageNumber}&pageSize=${pageSize}&sortBy=addedDate&sortOrder=desc`).then(response => response.data)
+}
+
+export const getPostByPostId = (postId) => {
+    return myAxios.get(`/posts/${postId}`).then(response => response.data)
 }

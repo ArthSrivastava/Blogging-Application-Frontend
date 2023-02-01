@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button, Card, CardBody, CardText } from "reactstrap";
 
 export default function Post(props) {
@@ -10,7 +11,7 @@ export default function Post(props) {
                     __html: props.post.content.substring(0, 60) + "..."
                 }}>
                 </CardText>
-                <Button color="dark">Read More</Button>
+                <Link className="btn btn-dark" to={"/posts/" + props.post.postId}>Read More</Link>
             </CardBody>
         </Card>
     )

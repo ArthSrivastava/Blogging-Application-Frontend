@@ -12,6 +12,7 @@ import PrivateRoutes from "./components/PrivateRoutes";
 import UserDashboard from "./pages/user-routes/UserDashboard";
 import ProfileInfo from "./pages/user-routes/ProfileInfo";
 import "./App.css"
+import PostPage from "./pages/PostPage";
 export default function App() {
   return (
     <BrowserRouter>
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="login" element={<Login/>}/>
         <Route path="about" element={<About/>}/>
         <Route path="contact" element={<Contact/>}/>
+        <Route path="posts/:postId" element={<PostPage />}/>
         <Route path="/user" element={<PrivateRoutes />}>
           <Route path="dashboard" element={<UserDashboard />} />
           <Route path="profile-info" element={<ProfileInfo />} />
