@@ -53,12 +53,7 @@ export default function NewFeed() {
   return (
     <div>
       <Row>
-        <Col
-          md={{
-            size: 10,
-            offset: 1,
-          }}
-        >
+        <Col>
           <h1>Total Blogs ({postsData?.totalElements})</h1>
 
           {/* Infinite Scroll */}

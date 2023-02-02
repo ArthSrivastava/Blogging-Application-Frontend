@@ -11,3 +11,18 @@ export const getAllPosts = (pageNumber=0, pageSize=5) => {
 export const getPostByPostId = (postId) => {
     return myAxios.get(`/posts/${postId}`).then(response => response.data)
 }
+
+export const uploadImage = (image, postId) => {
+    const formData = new FormData()
+    formData.append("image", image)
+    return privateAxios.post(`/posts/image/upload/${postId}`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    }).then(response => response.data)
+}
+
+//get posts by category
+export const getPostsByCategory = (categoryId) => {
+    return myAxios.get(`/category/${categoryId}/posts`).then(response => response.data)
+}

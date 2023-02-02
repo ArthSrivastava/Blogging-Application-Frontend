@@ -13,6 +13,7 @@ import UserDashboard from "./pages/user-routes/UserDashboard";
 import ProfileInfo from "./pages/user-routes/ProfileInfo";
 import "./App.css"
 import PostPage from "./pages/PostPage";
+import Categories from "./pages/Categories";
 export default function App() {
   return (
     <BrowserRouter>
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="about" element={<About/>}/>
         <Route path="contact" element={<Contact/>}/>
         <Route path="posts/:postId" element={<PostPage />}/>
+        <Route path="categories/:categoryId" element={<Categories />} />
         <Route path="/user" element={<PrivateRoutes />}>
           <Route path="dashboard" element={<UserDashboard />} />
           <Route path="profile-info" element={<ProfileInfo />} />

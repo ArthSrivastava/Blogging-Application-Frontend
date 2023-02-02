@@ -14,21 +14,23 @@ import {
 } from "reactstrap";
 import { getCurrentUserData } from "../services/auth/auth_service";
 import getAllCategories from "../services/category-service";
-import { makePost } from "../services/post-service";
+import { makePost, uploadImage } from "../services/post-service";
 
 export default function AddPost() {
-  const [categories, setCategories] = useState([]);
-  const [loggedInUser, setLoggedInUser] = useState(undefined);
-  
+  const [categories, setCategories] = useState([])
+  const [loggedInUser, setLoggedInUser] = useState(undefined)
+
   //For Jodit editor
   const editor = useRef(null);
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState("")
 
   const [postData, setPostData] = useState({
     title: "",
     content: "",
     categoryId: 0,
   });
+
+  const [image, setImage] = useState(null)
 
   //Handle input field changes
   function fieldChanged(event) {
@@ -61,36 +63,42 @@ export default function AddPost() {
     //frontend validations
     if (postData.categoryId === "") {
       toast.error("Category must be selected!");
-      return
+      return;
     }
     if (postData.content === "") {
       toast.error("Post content cannot be empty!");
-      return
+      return;
     }
     if (postData.title === "") {
       toast.error("You must provide a title to the post!");
-      return
+      return;
     }
 
     //submit on server
     postData["userId"] = loggedInUser;
     makePost(postData)
       .then((data) => {
-        toast.success("Post created successfully!")
-        resetForm()
+
+        uploadImage(image, data.postId).catch((error) => {
+          console.log(error)
+          toast.error("Unable to upload the image")
+        })
+        toast.success("Post created successfully!");
+        resetForm();
       })
       .catch((error) => {
-        toast.error("Some error occurred!")
+        console.log(error)
+        toast.error("Some error occurred!");
       });
   }
 
   //To handle the input changes in Jodit Editor
   function handleChangedContent(data) {
-    setContent(data)
+    setContent(data);
     setPostData((prevPostData) => {
       return {
         ...prevPostData,
-        "content": data,
+        content: data,
       };
     });
   }
@@ -103,6 +111,16 @@ export default function AddPost() {
       content: "",
       categoryId: 0,
     });
+    setImage(null)
+  }
+
+  //handle file change input
+  function handleFileChange(event) {
+    if(!event.target.files[0].type.startsWith("image")) {
+      toast.error("Please select an image file!")
+      return
+    }
+    setImage(event.target.files[0])
   }
 
   return (
@@ -143,6 +161,7 @@ export default function AddPost() {
                       value={content}
                       onChange={(content) => handleChangedContent(content)}
                       id="post--content"
+                      className="rounded-0"
                     />
                     {/* <Input
                       type="textarea"
@@ -158,6 +177,12 @@ export default function AddPost() {
                       name="content"
                     /> */}
                   </div>
+
+                  <div className="mt-3">
+                    <Label for="image"><h5>Post Image</h5></Label>
+                      <Input type="file" id="image" className="rounded-0" onChange={handleFileChange}/>
+                  </div>
+
                   <div className="my-3">
                     <Label for="post--category">
                       <h5>Post Category</h5>
