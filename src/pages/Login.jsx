@@ -1,11 +1,16 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import Base from "../components/Base";
 import { doLogin } from "../services/auth/auth_service";
 import { login } from "../services/user_service";
+import userContext from "../context/userContext";
+
 export default function Login() {
+
+  const userContextData = useContext(userContext)
+  
   const [loginDetails, setLoginDetails] = useState({
     username: "",
     password: ""
@@ -44,6 +49,11 @@ export default function Login() {
     login(loginDetails).then((data) => {
       doLogin(data, () => {
         navigate("/user/dashboard")
+        console.log(userContextData)
+        userContextData.setUser({
+          data: data.user,
+          login: true
+        })
         toast.success("Login successful!")
       })
     }).catch((respError) => {

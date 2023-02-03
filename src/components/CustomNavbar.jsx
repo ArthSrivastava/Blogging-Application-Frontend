@@ -8,17 +8,20 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
-import { React, useEffect, useState } from "react";
+import { React, useContext, useEffect, useState } from "react";
 import {
   doLogout,
   getCurrentUserData,
   isLoggedIn,
 } from "../services/auth/auth_service";
+import userContext from "../context/userContext";
 
 export default function CustomNavbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState(undefined);
+  const userContextData = useContext(userContext)
+
   const navigate = useNavigate();
   useEffect(() => {
     setUser(getCurrentUserData());
@@ -28,6 +31,10 @@ export default function CustomNavbar() {
   const logout = () => {
     doLogout(() => {
       navigate("/");
+      userContextData.setUser({
+        data: null,
+        login: false
+      })
       setLoggedIn(isLoggedIn());
     });
   };

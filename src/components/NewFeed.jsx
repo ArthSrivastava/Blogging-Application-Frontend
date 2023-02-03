@@ -11,6 +11,8 @@ import {
 } from "reactstrap";
 import { getAllPosts } from "../services/post-service";
 import Post from "./Post";
+import { deletePostService } from "../services/post-service";
+
 export default function NewFeed() {
   const [postsData, setPostsData] = useState({
     content: [],
@@ -50,6 +52,20 @@ export default function NewFeed() {
     setCurrentPage(currentPage + 1);
   };
 
+  //delete post
+  function deletePost(postId) {
+    deletePostService(postId).then((data) => {
+        console.log(data)
+        toast.success("Post deleted successfully!")
+        let newPosts = postsData.content.filter(p => p.postId != postId)
+        setPostsData({...postsData,
+          content: newPosts
+         })
+    }).catch(error => {
+        toast.error("Unable to delete post!")
+    })
+}
+
   return (
     <div>
       <Row>
@@ -68,7 +84,7 @@ export default function NewFeed() {
             }
           >
             {postsData.content.map((post) => (
-              <Post key={post.postId} post={post} />
+              <Post key={post.postId} post={post} deletePost={deletePost}/>
             ))}
           </InfiniteScroll>
 

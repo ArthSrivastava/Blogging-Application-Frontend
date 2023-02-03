@@ -26,3 +26,13 @@ export const uploadImage = (image, postId) => {
 export const getPostsByCategory = (categoryId) => {
     return myAxios.get(`/category/${categoryId}/posts`).then(response => response.data)
 }
+
+//get posts by user
+export const getPostsByUser = (userId) => {
+    return privateAxios.get(`/user/${userId}/posts`).then(response => response.data)
+}
+
+//delete post
+export const deletePostService = (postId) => {
+    return privateAxios.delete(`/posts/${postId}`).then(response => response.data)
+}

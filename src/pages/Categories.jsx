@@ -5,6 +5,9 @@ import { getPostsByCategory } from "../services/post-service";
 import { Container, Row, Col } from "reactstrap";
 import CategorySideMenu from "../components/CategorySideMenu";
 import Post from "../components/Post";
+import { deletePostService } from "../services/post-service";
+import { toast } from "react-toastify";
+
 export default function Categories() {
     
     const {categoryId} = useParams()
@@ -17,6 +20,17 @@ export default function Categories() {
             console.log(error)
         })
     }, [categoryId])
+
+    function deletePost(postId) {
+      deletePostService(postId).then((data) => {
+          console.log(data)
+          toast.success("Post deleted successfully!")
+          let newPosts = posts.filter(p => p.postId != postId)
+          setPosts([...newPosts])
+      }).catch(error => {
+          toast.error("Unable to delete post!")
+      })
+  }
     return (
         <Base>
             <Container className="mt-3">
@@ -38,7 +52,7 @@ export default function Categories() {
             {
                 posts && posts.map((post, index) => {
                     return (
-                        <Post post={post} key={index}/>
+                        <Post post={post} key={index} deletePost={deletePost}/>
                     )
                 })
             }
