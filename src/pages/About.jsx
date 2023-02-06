@@ -1,11 +1,12 @@
+import AboutView from "../components/AboutView";
 import Base from "../components/Base";
-
+import { Container } from "reactstrap";
 export default function About() {
   return (
     <Base>
-      <div className="about">
-        <h1>This is the about page!</h1>
-      </div>
+      <Container>
+        <AboutView />
+      </Container>
     </Base>
   );
 }

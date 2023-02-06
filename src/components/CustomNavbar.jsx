@@ -20,7 +20,7 @@ export default function CustomNavbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState(undefined);
-  const userContextData = useContext(userContext)
+  const userContextData = useContext(userContext);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -33,8 +33,8 @@ export default function CustomNavbar() {
       navigate("/");
       userContextData.setUser({
         data: null,
-        login: false
-      })
+        login: false,
+      });
       setLoggedIn(isLoggedIn());
     });
   };
@@ -49,17 +49,15 @@ export default function CustomNavbar() {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="me-auto" navbar>
             <NavItem>
+              <NavLink tag={ReactLink} to="/user/dashboard">
+                Create Post
+              </NavLink>
+            </NavItem>
+            <NavItem>
               <NavLink tag={ReactLink} to="/about">
                 About
               </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink tag={ReactLink} to="/contact">
-                Contact
-              </NavLink>
-            </NavItem>
-          </Nav>
-          <Nav navbar>
             {!loggedIn ? (
               <>
                 <NavItem>
@@ -76,21 +74,27 @@ export default function CustomNavbar() {
             ) : (
               <>
                 <NavItem>
-                  <NavLink tag={ReactLink} to="/user/dashboard">
-                    {user.email}
-                  </NavLink>
-                </NavItem>
-                <NavItem>
                   <NavLink tag={ReactLink} to="/user/profile-info">
                     Profile-Info
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink onClick={logout} style={{cursor: "pointer"}}>Logout</NavLink>
+                  <NavLink onClick={logout} style={{ cursor: "pointer" }}>
+                    Logout
+                  </NavLink>
                 </NavItem>
               </>
             )}
           </Nav>
+          {loggedIn && (
+            <Nav navbar>
+              <NavItem>
+                <NavLink tag={ReactLink} to="/user/profile-info">
+                  {user.email}
+                </NavLink>
+              </NavItem>
+            </Nav>
+          )}
         </Collapse>
       </Navbar>
     </div>
