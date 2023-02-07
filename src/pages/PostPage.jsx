@@ -15,7 +15,7 @@ import Base from "../components/Base";
 import { getCurrentUserData } from "../services/auth/auth_service";
 import { createComment } from "../services/comment-service";
 import { BASE_URL } from "../services/helper";
-import { getPostByPostId } from "../services/post-service";
+import { getPostByPostId, updateLikeOnPost } from "../services/post-service";
 
 export default function PostPage() {
   const { postId } = useParams();
@@ -26,7 +26,18 @@ export default function PostPage() {
     pId: postId,
   });
 
+  const [user, setUser] = useState(null)
+  
+  
   useEffect(() => {
+    populatePost()
+    populateUser()
+  }, []);
+  
+  const [hasLiked, setHasLiked] = useState(post?.likedBy.forEach(item => {
+    if(item.id == user?.id) return true
+  }))
+  const populatePost = () => {
     getPostByPostId(postId)
       .then((data) => {
         setPost(data);
@@ -34,8 +45,11 @@ export default function PostPage() {
       .catch((error) => {
         toast.error("Some error occurred, the post cannot be loaded!");
       });
-  }, []);
+  }
 
+  const populateUser = () => {
+    setUser(getCurrentUserData())
+  }
   function getDate(addedDate) {
     const date = new Date(addedDate);
     const d = date.getDate();
@@ -88,6 +102,15 @@ export default function PostPage() {
       });
   }
 
+  const updateLike = () => {
+    updateLikeOnPost(user.id, post.postId).then(data => {
+      console.log(data)
+    }).catch(error => {
+      console.log(error)
+    })
+    populatePost()
+    setHasLiked(prevHasLiked => !prevHasLiked)
+  }
   return (
     <Base>
       <Container>
@@ -126,6 +149,7 @@ export default function PostPage() {
                     className="mt-3"
                     dangerouslySetInnerHTML={{ __html: post.content }}
                   />
+                  {!hasLiked ? <img src="/src/assets/notliked.png" className="likeIcon" onClick={updateLike}/> : <img src="/src/assets/liked.png" className="likeIcon" onClick={updateLike}/>} {post && <span><h5>{post.likesCount}</h5></span>}
                 </CardBody>
               )}
             </Card>

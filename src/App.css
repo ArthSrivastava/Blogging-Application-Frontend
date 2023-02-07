@@ -26,3 +26,8 @@ body {
     #8e9eab
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+
+.likeIcon{
+    max-width: 50px;
+    max-height: 50px;
+}
