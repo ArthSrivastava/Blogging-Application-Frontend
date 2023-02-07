@@ -13,7 +13,7 @@ export default function Post(props) {
   }, []);
 
   return (
-    <Card className="border-0 shadow-sm mt-3">
+    <Card className="border-0 shadow-sm mt-3 rounded-0">
       <CardBody>
         <h1>
           <i>{props.post.title}</i>

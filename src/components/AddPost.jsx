@@ -133,7 +133,7 @@ export default function AddPost() {
               offset: 3,
             }}
           >
-            <Card className="rounded-0 card">
+            <Card className="rounded-0 border-0">
               <CardBody>
                 <h3>Share your thoughts to the world</h3>
                 <hr />
@@ -211,7 +211,7 @@ export default function AddPost() {
                     </Input>
                   </div>
                   <Container className="text-center">
-                    <Button color="primary" className="rounded-0">
+                    <Button color="primary" className="rounded-0" outline>
                       Create Post
                     </Button>
                     <Button
@@ -219,6 +219,7 @@ export default function AddPost() {
                       type="reset"
                       className="rounded-0 ms-2"
                       onClick={resetForm}
+                      outline
                     >
                       Reset
                     </Button>

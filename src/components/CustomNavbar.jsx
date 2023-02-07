@@ -41,7 +41,7 @@ export default function CustomNavbar() {
   const toggle = () => setIsOpen(!isOpen);
   return (
     <div className="my-nav">
-      <Navbar dark expand="md" fixed="" className="px-3">
+      <Navbar light expand="md" fixed="" className="px-3 shadow-sm border-0">
         <NavbarBrand tag={ReactLink} to="/home">
           MyBlogger
         </NavbarBrand>

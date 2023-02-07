@@ -73,7 +73,7 @@ export default function Login() {
               size:6, offset:3
             }
           }>
-            <Card className="mt-5 card">
+            <Card className="mt-5 card border-0 rounded-0">
               <CardHeader>
                 <h3>Login</h3>
               </CardHeader>
@@ -102,8 +102,8 @@ export default function Login() {
                       />
                   </FormGroup>
                   <Container className="text-center">
-                    <Button color="primary">Login</Button>
-                    <Button color="danger" className="ms-2" onClick={resetForm}>Reset</Button>
+                    <Button color="primary" outline>Login</Button>
+                    <Button color="danger" outline className="ms-2" onClick={resetForm}>Reset</Button>
                   </Container>
                 </Form>
               </CardBody>

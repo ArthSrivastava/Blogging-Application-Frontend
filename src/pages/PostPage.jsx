@@ -94,7 +94,7 @@ export default function PostPage() {
         {/* <Link to="/">Home</Link> */}
         <Row className="mt-3">
           <Col md={{ size: 12 }}>
-            <Card className="rounded-0 shadow ps-2">
+            <Card className="rounded-0 shadow ps-2 border-0">
               {post && (
                 <CardBody>
                   <CardText>
@@ -138,20 +138,8 @@ export default function PostPage() {
               size: 12,
             }}
           >
-            <Card className="ps-2">
-              {post && <h2>Comments ({post.comments.length})</h2>}
-              {post &&
-                post.comments.map((c, index) => {
-                  return (
-                    <CardText key={index} className="p-0">
-                      <b>
-                        {c.user.name} ({c.user.email})
-                      </b>
-                      : {c.content}
-                    </CardText>
-                  );
-                })}
-
+            <Card className="ps-2 rounded-0 border-0 shadow-sm">
+              {post && <h2 className="mt-3 ms-3">Comments ({post.comments.length})</h2>}
               <CardBody className="mt-2 border-0">
                 <Input
                   type="textarea"
@@ -165,13 +153,25 @@ export default function PostPage() {
                   value={comment.content}
                 />
                 <Button
-                  className="mt-3"
+                  className="mt-3 rounded-0"
                   color="primary"
                   onClick={submitComment}
+                  outline
                 >
                   Submit
                 </Button>
               </CardBody>
+              {post &&
+                post.comments.map((c, index) => {
+                  return (
+                    <CardText key={index} className="p-0 ms-3">
+                      <b>
+                        {c.user.name} ({c.user.email})
+                      </b>
+                      : {c.content}
+                    </CardText>
+                  );
+                })}
             </Card>
           </Col>
         </Row>

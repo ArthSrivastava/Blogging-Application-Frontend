@@ -91,7 +91,7 @@ export default function Signup() {
               offset: 3,
             }}
           >
-            <Card className="card">
+            <Card className="card border-0 shadow-sm rounded-0">
               <CardHeader>
                 <h3>Register Here</h3>
               </CardHeader>
