@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Base from "../components/Base";
-import { getCurrentUserData } from "../services/auth/auth_service";
+import { getCurrentUserData, isLoggedIn } from "../services/auth/auth_service";
 import { getPostByPostId, updatePost } from "../services/post-service";
 import { toast } from "react-toastify";
 import JoditEditor from "jodit-react";
@@ -18,6 +18,7 @@ import {
 } from "reactstrap";
 import getAllCategories from "../services/category-service";
 import { privateAxios } from "../services/helper";
+import { doLogout } from "../services/auth/auth_service";
 
 export default function UpdateBlog() {
   const { postId } = useParams();
@@ -69,20 +70,35 @@ export default function UpdateBlog() {
 
   const submitUpdatePost = (event) => {
     event.preventDefault();
-    updatePost({
-      ...post,
-      category: {
-        categoryId: post.categoryId
+    updatePost(
+      {
+        ...post,
+        category: {
+          categoryId: post.categoryId,
+        },
       },
-    }, postId)
+      postId,
+      user?.id
+    )
       .then((data) => {
         console.log(data);
         toast.success("Post updated successfully!");
       })
       .catch((error) => {
         console.log(error);
+        if (error.response.data.message == "JWT token has expired!") {
+          autoLogout();
+          return;
+        }
         toast.error("Error in updating post!");
       });
+  };
+
+  const autoLogout = () => {
+    doLogout(() => {
+      navigate("/home");
+    });
+    toast.error("Please sign in again to continue!");
   };
 
   function getJSX() {

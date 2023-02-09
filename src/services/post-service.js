@@ -38,8 +38,8 @@ export const deletePostService = (postId) => {
 }
 
 //update post
-export const updatePost = (post, postId) => {
-    return privateAxios.put(`/posts/${postId}`, post).then(response => response.data)
+export const updatePost = (post, postId, userId) => {
+    return privateAxios.put(`/user/${userId}/posts/${postId}`, post).then(response => response.data)
 }
 
 //update likes on a post
