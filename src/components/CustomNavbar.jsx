@@ -42,7 +42,7 @@ export default function CustomNavbar() {
   return (
     <div className="my-nav">
       <Navbar light expand="md" fixed="" className="px-3 shadow-sm border-0">
-        <NavbarBrand tag={ReactLink} to="/home">
+        <NavbarBrand tag={ReactLink} to="/home" style={{fontSize: "2rem"}}>
           MyBlogger
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
